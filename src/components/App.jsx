@@ -15,23 +15,23 @@ import {
 
 const App = () => {
   const contacts = useSelector((state) => state.contacts.contacts);
-  const filters = useSelector((state) => { console.log(state); return state.filters }
+  const filters = useSelector((state) => { return state.filters }
   );
   
   const dispatch = useDispatch();
-console.log(filters);
 
-  const storedContacts = localStorage.getItem('contacts');
-  const initialContacts = storedContacts ? JSON.parse(storedContacts) : [
-    { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+  const initialContacts = [
+  { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
     { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
     { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-    { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+    { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' }
   ];
 
   useEffect(() => {
-    dispatch(setContacts(initialContacts));
-  }, [dispatch]);
+    if (contacts.length === 0) {
+      dispatch(setContacts(initialContacts));
+    }
+  }, [dispatch, contacts]);
 
   const filterContacts = (event) => {
     dispatch(setContactsFilter(event.currentTarget.value));
@@ -40,7 +40,7 @@ console.log(filters);
   const handleDeleteClick = (contactId) => {
     dispatch(deleteContact(contactId));
   };
-console.log(contacts);
+
   const filteredContacts = contacts.filter((contact) =>
     contact.name.toLowerCase().includes(filters.toLowerCase())
   );
