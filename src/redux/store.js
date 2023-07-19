@@ -12,7 +12,7 @@ import {
 import storage from 'redux-persist/lib/storage';
 
 import  contactsSlice  from './contactsSlice';
-import { filtersReducer } from './filtersSlice';
+import filtersReducer from './filtersSlice';
 
 const rootReducer = combineReducers({
     contacts: contactsSlice,
